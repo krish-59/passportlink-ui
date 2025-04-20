@@ -38,12 +38,15 @@ export const authService = {
 
   // Start OAuth flow with a provider
   loginWithProvider: (providerId: string): void => {
-    window.location.href = `/auth/${providerId}`;
+    // Use the apiClient's baseURL to ensure consistent URL handling
+    window.location.href = apiClient.defaults.baseURL + `/auth/${providerId}`;
   },
 
   // Link account with a provider
   linkProvider: (providerId: string): void => {
-    window.location.href = `/auth/link/${providerId}`;
+    // Use the apiClient's baseURL to ensure consistent URL handling
+    window.location.href =
+      apiClient.defaults.baseURL + `/auth/link/${providerId}`;
   },
 
   // Unlink account from a provider

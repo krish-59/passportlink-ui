@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store";
 
@@ -18,22 +18,40 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 const App: React.FC = () => {
   return (
     <Provider store={store}>
-      <Router>
+      <BrowserRouter>
         <Routes>
-          {/* Public routes */}
+          {/* Public Routes */}
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+
+          {/* Auth Callback Routes */}
           <Route path="/auth/success" element={<SuccessPage />} />
           <Route path="/auth/failure" element={<FailurePage />} />
 
-          {/* Protected routes */}
-          <Route element={<ProtectedRoute />}>
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-          </Route>
+          {/* Protected Routes */}
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Default Route */}
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
-      </Router>
+      </BrowserRouter>
     </Provider>
   );
 };

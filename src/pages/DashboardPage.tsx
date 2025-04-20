@@ -45,7 +45,7 @@ const DashboardPage: React.FC = () => {
                   <div>
                     <p className="text-sm text-gray-500">Linked Providers</p>
                     <p className="text-gray-700">
-                      {user.linkedProviders.length > 0
+                      {user.linkedProviders && user.linkedProviders.length > 0
                         ? user.linkedProviders.join(", ")
                         : "No linked providers"}
                     </p>

@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { fetchUserProfile } from "../../store/authSlice";
 
-const ProtectedRoute: React.FC = () => {
+interface ProtectedRouteProps {
+  children: React.ReactNode;
+}
+
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { isAuthenticated, isLoading, user } = useAppSelector(
@@ -36,7 +40,7 @@ const ProtectedRoute: React.FC = () => {
   }
 
   return isAuthenticated ? (
-    <Outlet />
+    <>{children}</>
   ) : (
     <Navigate to="/login" state={{ from: location }} replace />
   );
