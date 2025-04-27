@@ -7,12 +7,22 @@ export interface Provider {
   icon: string;
 }
 
+export interface UserProvider {
+  provider: string;
+  displayName: string;
+  email: string;
+  profilePhoto?: string;
+  linkedAt: string;
+}
+
 export interface User {
   id: string;
   email: string;
   username?: string;
   displayName?: string;
-  linkedProviders: string[];
+  name?: string;
+  linkedProviders?: string[];
+  providers?: UserProvider[];
 }
 
 export const authService = {
