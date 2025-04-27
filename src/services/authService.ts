@@ -56,7 +56,19 @@ export const authService = {
 
   // Logout user
   logout: async (): Promise<void> => {
-    await apiClient.post("/auth/logout");
+    await apiClient.post(
+      "/auth/logout",
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+
+    // Additional client-side cookie cleanup for redundancy
+    document.cookie.split(";").forEach((cookie) => {
+      const [name] = cookie.trim().split("=");
+      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    });
   },
 
   // Check if user is authenticated

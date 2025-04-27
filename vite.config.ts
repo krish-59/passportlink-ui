@@ -20,6 +20,8 @@ export default defineConfig({
       "/auth/logout": {
         target: "http://localhost:3000",
         changeOrigin: true,
+        cookieDomainRewrite: "",
+        xfwd: true,
       },
       // Provider authentication endpoints
       "/auth/google": {
@@ -27,6 +29,10 @@ export default defineConfig({
         changeOrigin: true,
       },
       "/auth/github": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+      },
+      "/auth/facebook": {
         target: "http://localhost:3000",
         changeOrigin: true,
       },
